@@ -15,34 +15,35 @@ def user_menu():
         for i, e in enumerate(textfiles, start=1):
             print("Text file ({}): {}".format(i, e))
 
-        print('''Please provide a number to select a text file.
-            The text will be scanned to construct a Markov Chain (MC). This model
-              is then used to generate text.''')
+        print("Please provide a number to select a text file."
+            "The text will be scanned to construct a Markov Chain (MC). This"
+              " model is then used to generate text.")
         try:
             v = int(input("Enter your choice: "))
         except ValueError:
-            print("I'm sorry, that is not a valid choice. Please try again")
+            print("I'm sorry, that is not a valid choice. Please try again.")
             continue
 
         if v > 0 and v <= len(textfiles):
             print(f"You have chosen {v}")
             graph = create_mc(textfiles[v-1])
         else:
-            print("That value is out of range. Please try again")
+            print("That value is out of range. Please try again.")
             continue
 
         print("The MC model has been created.")
         generatetext(graph)
 
-        end = input('''Input Y to choose another text file. Any other input will
-                    terminate the program: ''')
+        end = input("Input Y to choose another text file. Any other input will"
+                    " terminate the program: ")
         end.lower()
+        print(end)
         if end == "y":
             continue
         else:
             b = False
 
-        print("Thank you. Until next time")
+        print("Thank you. Until next time.")
 
 # Initiates menu for user provided command line argument
 def arg_menu(filearg):
@@ -74,10 +75,10 @@ def generatetext(graph):
     tloop = True
     while(tloop):
         try:
-            word_count = int(input('''How many words do you desire to generate
-                                   for your text?: '''))
+            word_count = int(input("How many words do you desire to generate"
+                                   " for your text?: "))
         except ValueError:
-            print("I'm sorry, that isn't a valid input. Try again")
+            print("I'm sorry, that isn't a valid input. Try again.")
             continue
 
         if word_count > 0:
@@ -100,6 +101,7 @@ def generatetext(graph):
 
             more = input("Would you like to generate more text? y/n :")
             more.lower()
+            print(more)
             if more == "y":
                 continue
             else:
