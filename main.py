@@ -31,7 +31,7 @@ def user_menu():
             continue
 
         print("The MC model has been created.")
-        generate(graph)
+        generatetext(graph)
 
 
 # Initiates menu for user provided command line argument
@@ -59,9 +59,41 @@ def create_mc(filename):
     return g
 
 # Generates text.
-def generate(graph):
-    wordcount = 0
-    pass
+def generatetext(graph):
+    tloop = True
+    while(tloop):
+        try:
+            wordcount = int(input('''How many words do you desire to generate
+                                  for your text?'''))
+        except ValueError:
+            print("I'm sorry, that isn't a valid input. Try again")
+            continue
+
+        if wordcount > 0:
+            # Obtain a list of keys for each vertex. Establish the starting 'node' for
+            # graph traversal.
+            keylist = list(graph.get_vertices())
+            currentvertex = graph.get_vertex(keylist[random.randrange(len(keylist))])
+            markovtext = currentvertex.value
+
+            # The currentvertex variable changes types. From vertex to string, then back to vertex, 
+            # to keep traversing the graph. Acquires string values based on adjacent
+            # vertices and the edge weight values that connects them.
+            for _ in range(word_count):
+                adjacentvertices = list(currentvertex.get_links())
+                currentvertex = random.choices(adjacentvertices, weights=currentvertex.get_weights())[0]
+                markovtext += " " + currentvertex
+                currentvertex = graph.get_vertex(currentvertex)
+
+            print(markovtext)
+
+            more = input("Would you like to generate more text? y/n")
+            more.lower()
+            if more == "y":
+                continue
+            else:
+                tloop = False
+
 
 def main():
     print("Greetings! Welcome to the text generator.")
@@ -75,23 +107,8 @@ def main():
     andtex = g.get_vertex("and")
     print(andtex.get_weight("the"))'''
 
-    # Obtain a list of keys for each vertex. Establish the starting 'node' for
-    # graph traversal.
-    keylist = list(g.get_vertices())
-    currentvertex = g.get_vertex(keylist[random.randrange(len(keylist))])
-    markovtext = currentvertex.value
 
     word_count = 100
-    # The currentvertex variable changes types. From vertex to string, then back to vertex, 
-    # to keep traversing the graph. Acquires string values based on adjacent
-    # vertices and the edge weight values that connects them.
-    '''for _ in range(word_count):
-        adjacentvertices = list(currentvertex.get_links())
-        currentvertex = random.choices(adjacentvertices, weights=currentvertex.get_weights())[0]
-        markovtext += " " + currentvertex
-        currentvertex = g.get_vertex(currentvertex)
-
-    print(markovtext)'''
 
 if __name__ == "__main__":
     main()
