@@ -33,6 +33,15 @@ def user_menu():
         print("The MC model has been created.")
         generatetext(graph)
 
+        end = input('''Input Y to choose another text file. Any other input will
+                    terminate the program.''')
+        end.lower()
+        if end == "y":
+            continue
+        else:
+            b = False
+
+        print("Thank you. Until next time")
 
 # Initiates menu for user provided command line argument
 def arg_menu(filearg):
@@ -102,13 +111,7 @@ def main():
         print("No command line arguments detected.")
         user_menu()
 
-    '''print(g.graph_vertices)
-    print(g.get_vertices())
-    andtex = g.get_vertex("and")
-    print(andtex.get_weight("the"))'''
-
-
-    word_count = 100
 
 if __name__ == "__main__":
     main()
+
