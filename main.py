@@ -1,4 +1,5 @@
 import os
+import sys
 import string
 import random
 from graph import Graph, Vertex
@@ -12,11 +13,11 @@ def user_menu():
         textfiles = os.listdir("texts/")
 
         for i, e in enumerate(textfiles, start=1):
-            print("Text file {}: {}".format(i, e))
+            print("Text file ({}): {}".format(i, e))
 
         print('''Please provide a number to select a text file.
             The text will be scanned to construct a Markov Chain (MC). This model
-            is then used to generate text.''')
+              is then used to generate text.''')
         try:
             v = int(input("Enter your choice: "))
         except ValueError:
@@ -34,7 +35,7 @@ def user_menu():
         generatetext(graph)
 
         end = input('''Input Y to choose another text file. Any other input will
-                    terminate the program.''')
+                    terminate the program: ''')
         end.lower()
         if end == "y":
             continue
@@ -50,6 +51,7 @@ def arg_menu(filearg):
 # Processes text and creates Graph object representation of Markov Chain.
 # Returns the Graph object.
 def create_mc(filename):
+    filename = "texts/"+filename
     filepath = os.path.realpath(filename)
     g = Graph()
     with open(filepath) as f:
@@ -72,13 +74,13 @@ def generatetext(graph):
     tloop = True
     while(tloop):
         try:
-            wordcount = int(input('''How many words do you desire to generate
-                                  for your text?'''))
+            word_count = int(input('''How many words do you desire to generate
+                                   for your text?: '''))
         except ValueError:
             print("I'm sorry, that isn't a valid input. Try again")
             continue
 
-        if wordcount > 0:
+        if word_count > 0:
             # Obtain a list of keys for each vertex. Establish the starting 'node' for
             # graph traversal.
             keylist = list(graph.get_vertices())
@@ -96,7 +98,7 @@ def generatetext(graph):
 
             print(markovtext)
 
-            more = input("Would you like to generate more text? y/n")
+            more = input("Would you like to generate more text? y/n :")
             more.lower()
             if more == "y":
                 continue
@@ -106,8 +108,8 @@ def generatetext(graph):
 
 def main():
     print("Greetings! Welcome to the text generator.")
-
-    if not len(sys.argv):
+    print(len(sys.argv))
+    if len(sys.argv) < 2:
         print("No command line arguments detected.")
         user_menu()
 
