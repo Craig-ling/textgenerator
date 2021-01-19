@@ -16,7 +16,7 @@ def user_menu():
             print("Text file ({}): {}".format(i, e))
 
         print("Please provide a number to select a text file."
-            "The text will be scanned to construct a Markov Chain (MC). This"
+            " The text will be scanned to construct a Markov Chain (MC). This"
               " model is then used to generate text.")
         try:
             v = int(input("Enter your choice: "))
@@ -36,9 +36,7 @@ def user_menu():
 
         end = input("Input Y to choose another text file. Any other input will"
                     " terminate the program: ")
-        end.lower()
-        print(end)
-        if end == "y":
+        if end.lower() == "y":
             continue
         else:
             b = False
@@ -99,10 +97,8 @@ def generatetext(graph):
 
             print(markovtext)
 
-            more = input("Would you like to generate more text? y/n :")
-            more.lower()
-            print(more)
-            if more == "y":
+            more = input("Would you like to generate more text? y/n: ")
+            if more.lower() == "y":
                 continue
             else:
                 tloop = False
