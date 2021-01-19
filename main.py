@@ -31,17 +31,32 @@ def user_menu():
             continue
 
         print("The MC model has been created.")
-        
-
+        generate(graph)
 
 
 # Initiates menu for user provided command line argument
 def arg_menu(filearg):
     pass
 
-# Processes text to create Graph object.
+# Processes text and creates Graph object representation of Markov Chain.
+# Returns the Graph object.
 def create_mc(filename):
-    pass
+    filepath = os.path.realpath(filename)
+    g = Graph()
+    with open(filepath) as f:
+        text_data = f.read()
+
+    text_data = text_data.translate(str.maketrans('', '', string.punctuation))
+    text_data = ' '.join(text_data.split())
+    text_data = text_data.lower()
+    text_data = text_data.split(' ')
+
+    g.add_vertex(text_data[0])
+
+    for i in range(1, len(text_data)):
+        g.add_edge(text_data[i-1], text_data[i])
+
+    return g
 
 # Generates text.
 def generate(graph):
@@ -54,22 +69,6 @@ def main():
     if not len(sys.argv):
         print("No command line arguments detected.")
         user_menu()
-
-    print(textfiles)
-
-    g = Graph()
-    with open("/home/den/Projects/textgenerator/texts/Omelas_LeGuin") as f:
-        text_data = f.read()
-
-    text_data = text_data.translate(str.maketrans('', '', string.punctuation))
-    text_data = ' '.join(text_data.split())
-    text_data = text_data.lower()
-    text_data = text_data.split(' ')
-
-    g.add_vertex(text_data[0])
-
-    for i in range(1, len(text_data)):
-        g.add_edge(text_data[i-1], text_data[i])
 
     '''print(g.graph_vertices)
     print(g.get_vertices())
