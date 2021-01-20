@@ -25,13 +25,12 @@ def user_menu():
             continue
 
         if v > 0 and v <= len(textfiles):
-            print(f"You have chosen {v}")
+            print(f"You have chosen {v}.")
             graph = create_mc(textfiles[v-1])
         else:
             print("That value is out of range. Please try again.")
             continue
 
-        print("The MC model has been created.")
         generatetext(graph)
 
         end = input("Input Y to choose another text file. Any other input will"
@@ -45,13 +44,24 @@ def user_menu():
 
 # Initiates menu for user provided command line argument
 def arg_menu(filearg):
-    pass
+    mc = create_mc(filearg)
+    generatetext(mc)
+    response = input("Would you like to choose another text to create a"
+                     " different model? Y/n: ")
+    if response.lower() == "y":
+        user_menu()
+    else:
+        print("Thank you, farewell.")
 
 # Processes text and creates Graph object representation of Markov Chain.
 # Returns the Graph object.
 def create_mc(filename):
-    filename = "texts/"+filename
-    filepath = os.path.realpath(filename)
+    if "texts/" not in filename:
+        filename = "texts/"+filename
+        filepath = os.path.realpath(filename)
+    else:
+        filepath = filename
+
     g = Graph()
     with open(filepath) as f:
         text_data = f.read()
@@ -66,6 +76,7 @@ def create_mc(filename):
     for i in range(1, len(text_data)):
         g.add_edge(text_data[i-1], text_data[i])
 
+    print("The Markov Chain (MC) model has been created.")
     return g
 
 # Generates text.
@@ -89,7 +100,7 @@ def generatetext(graph):
             # The currentvertex variable changes types. From vertex to string, then back to vertex, 
             # to keep traversing the graph. Acquires string values based on adjacent
             # vertices and the edge weight values that connects them.
-            for _ in range(word_count):
+            for _ in range(word_count-1):
                 adjacentvertices = list(currentvertex.get_links())
                 currentvertex = random.choices(adjacentvertices, weights=currentvertex.get_weights())[0]
                 markovtext += " " + currentvertex
@@ -97,7 +108,7 @@ def generatetext(graph):
 
             print(markovtext)
 
-            more = input("Would you like to generate more text? y/n: ")
+            more = input("Would you like to generate more text? Y/n: ")
             if more.lower() == "y":
                 continue
             else:
@@ -106,11 +117,12 @@ def generatetext(graph):
 
 def main():
     print("Greetings! Welcome to the text generator.")
-    print(len(sys.argv))
     if len(sys.argv) < 2:
         print("No command line arguments detected.")
         user_menu()
-
+    else:
+        print("Accessing file..."+str(sys.argv[1]))
+        arg_menu(sys.argv[1])
 
 if __name__ == "__main__":
     main()
