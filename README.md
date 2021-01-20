@@ -21,3 +21,9 @@ source env/bin/activate
 ## Run main
 
 python main.py
+
+## Option to run with argument from command line
+
+python main.py example/user/directory/filename
+
+where the filepath example is localized to your machine.
