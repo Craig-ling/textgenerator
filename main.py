@@ -47,7 +47,8 @@ def arg_menu(filearg):
     mc = create_mc(filearg)
     generatetext(mc)
     response = input("Would you like to choose another text to create a"
-                     " different model? Y/n: ")
+                     " different model? Y/y will accept. Any other input will"
+                     " exit: ")
     if response.lower() == "y":
         user_menu()
     else:
@@ -84,7 +85,7 @@ def generatetext(graph):
     tloop = True
     while(tloop):
         try:
-            word_count = int(input("How many words do you desire to generate"
+            word_count = int(input("How many words would you like to generate"
                                    " for your text?: "))
         except ValueError:
             print("I'm sorry, that isn't a valid input. Try again.")
@@ -108,12 +109,14 @@ def generatetext(graph):
 
             print(markovtext)
 
-            more = input("Would you like to generate more text? Y/n: ")
+            more = input("Would you like to generate more text? Y/y will"
+                         " accept. Any other input will decline: ")
             if more.lower() == "y":
                 continue
             else:
                 tloop = False
-
+        else:
+            print("Please enter an integer greater than 0 to produce text.")
 
 def main():
     print("Greetings! Welcome to the text generator.")
@@ -121,7 +124,7 @@ def main():
         print("No command line arguments detected.")
         user_menu()
     else:
-        print("Accessing file..."+str(sys.argv[1]))
+        print("Accessing file... "+str(sys.argv[1]))
         arg_menu(sys.argv[1])
 
 if __name__ == "__main__":
