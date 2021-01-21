@@ -1,5 +1,9 @@
 # This file contains the Graph and Vertex classes.
 
+# The vertex represents a node in the graph. Each vertex/node has a value
+# to contain and a dictionary of every other vertex that is connected to it
+# (representing edges). The key is the adjacent vertex and the value is the
+# weight of the edge.
 class Vertex:
     def __init__(self, word):
         self.value = word
@@ -13,7 +17,7 @@ class Vertex:
             self.adjacent_to[adj.value] += 1
         else:
             self.adjacent_to[adj.value] = weight
-    
+
     def get_links(self):
         return self.adjacent_to.keys()
 
@@ -26,6 +30,10 @@ class Vertex:
     def get_weights(self):
         return self.adjacent_to.values()
 
+# A graph object represents a series of directed linked vertices. Each edge
+# connecting each vertex is weighted (in one direction). A dictionary
+# variable for each graph object contains the key, the value of each vertex,
+# and the vertex object itself as a value.
 class Graph:
     def __init__(self):
         self.graph_vertices = {}
@@ -35,7 +43,6 @@ class Graph:
         vertex = Vertex(keyword)
         self.graph_vertices[keyword] = vertex
         self.number_of_vertices += 1
-        #return vertex, why do I want to return the vertex? just in case...?
 
     def add_edge(self, fkey, tkey):
         if fkey not in self.graph_vertices:
@@ -44,19 +51,18 @@ class Graph:
             self.add_vertex(tkey)
 
         self.graph_vertices[fkey].add_adjacent(self.graph_vertices[tkey])
-    
+
     def get_vertex(self, key):
         if key in self.graph_vertices:
             return self.graph_vertices[key]
         else:
             return None
-    
+
     def get_vertices(self):
         return self.graph_vertices.keys()
 
     def __iter__(self):
         return iter(self.graph_vertices.values())
-        # making iterable object, with loops (for)
 
     def __contains__(self, vertex):
         return vertex in self.graph_vertices

@@ -4,7 +4,7 @@ import string
 import random
 from graph import Graph, Vertex
 
-# Initiates user menu for texts directory files
+# Initiates user menu for text files in the /texts/ directory.
 def user_menu():
     b = True
 
@@ -80,7 +80,9 @@ def create_mc(filename):
     print("The Markov Chain (MC) model has been created.")
     return g
 
-# Generates text.
+# Receives a graph object as input. This graph is a Markov Chain model
+# representation. The user is asked to provide an integer. Text containing
+# an amount of words equal to this integer is created using the graph.
 def generatetext(graph):
     tloop = True
     while(tloop):
