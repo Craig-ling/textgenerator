@@ -32,7 +32,7 @@ def user_menu():
             print("That value is out of range. Please try again.")
             continue
 
-        generatetext(graph)
+        generate_text(graph)
 
         end = input("Input Y to choose another text file. Any other input will"
                     " terminate the program: ")
@@ -47,7 +47,7 @@ def user_menu():
 # Initiates menu for user provided command line argument
 def arg_menu(filearg):
     mc = create_mc(filearg)
-    generatetext(mc)
+    generate_text(mc)
     response = input("Would you like to choose another text to create a"
                      " different model? Y/y will accept. Any other input will"
                      " exit: ")
@@ -92,7 +92,7 @@ def create_mc(filename):
 
 
 # Receives a Graph object and integer as input to create and return a string of words.
-def createstring(graph, wordcount):
+def create_string(graph, wordcount):
     # Obtain a list of keys for each vertex. Establish the starting 'node' for
     # graph traversal.
     keylist = list(graph.get_vertices())
@@ -114,7 +114,7 @@ def createstring(graph, wordcount):
 # Receives a graph object as input. This graph is a Markov Chain model
 # representation. The user is asked to provide an integer. Text containing
 # an amount of words equal to this integer is created using the graph.
-def generatetext(graph):
+def generate_text(graph):
     tloop = True
     while tloop:
         try:
@@ -125,7 +125,7 @@ def generatetext(graph):
             continue
 
         if word_count > 0:
-            markovtext = createstring(graph, word_count)
+            markovtext = create_string(graph, word_count)
             print(markovtext)
 
             more = input("Would you like to generate more text? Y/y will"
