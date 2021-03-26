@@ -30,6 +30,7 @@ class Vertex:
     def get_weights(self):
         return self.adjacent_to.values()
 
+
 # A graph object represents a series of directed linked vertices. Each edge
 # connecting each vertex is weighted (in one direction). A dictionary
 # variable for each graph object contains the key, the value of each vertex,
@@ -66,4 +67,3 @@ class Graph:
 
     def __contains__(self, vertex):
         return vertex in self.graph_vertices
-
